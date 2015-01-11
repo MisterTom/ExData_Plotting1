@@ -1,0 +1,15 @@
+household_power_consumption <- read.csv("~/R/exdata-data-household_power_consumption/household_power_consumption.txt", sep=";")
+all.df = data.frame (household_power_consumption)
+toplot = all.df[all.df$Date %in% c("1/2/2007","2/2/2007"),]
+toplot$Global_active_power = as.numeric(levels(toplot$Global_active_power))[toplot$Global_active_power]
+windows()
+png(filename = "plot1.png",
+    width = 480, height = 480, units = "px", pointsize = 12,
+    bg = "white") 
+par(mfrow=c(1,1)) 
+par(mar=c(4,4,2,2))
+
+hist(toplot$Global_active_power,col="Red",main = "Global Active Power",xlab="Global Active Power (kilowatts)",ylab="Frequency")
+
+dev.off()
+
