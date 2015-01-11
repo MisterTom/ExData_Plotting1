@@ -1,0 +1,20 @@
+data<- read.csv("~/R/exdata-data-household_power_consumption/household_power_consumption.txt", sep=";", stringsAsFactors=FALSE)
+toplot <-  data[data$Date %in% c("1/2/2007","2/2/2007"),]
+toplot$DateTime <- as.POSIXct(paste(toplot$Date, toplot$Time), format="%d/%m/%Y %H:%M:%S") 
+xo = toplot$DateTime
+'windows()'
+
+png(filename = "plot3.png", width = 480, height = 480, units = "px", pointsize = 12, bg = "white") 
+par(mfrow=c(1,1)) 
+par(mar=c(4,4,2,2))
+
+Sub_metering_1 =as.numeric ( toplot$Sub_metering_1)
+plot(x=xo,y=Sub_metering_1,type="l",xlab="",ylab="Energy Sub Metering")
+Sub_metering_2 =as.numeric ( toplot$Sub_metering_2)
+lines(x=xo,y=Sub_metering_2,col="red")
+Sub_metering_3 =as.numeric ( toplot$Sub_metering_3)
+lines(x=xo,y=Sub_metering_3,col="blue")
+leg.txt = c ("Sub_metering_1","Sub_metering_2","Sub_metering_3")
+legend('topright',legend = leg.txt, lty =1, col = c ("black","red","blue"))
+
+dev.off()
