@@ -1,0 +1,16 @@
+data<- read.csv("~/R/exdata-data-household_power_consumption/household_power_consumption.txt", sep=";", stringsAsFactors=FALSE)
+toplot <-  data[data$Date %in% c("1/2/2007","2/2/2007"),]
+toplot$DateTime <- as.POSIXct(paste(toplot$Date, toplot$Time), format="%d/%m/%Y %H:%M:%S") 
+xo = toplot$DateTime
+yo=toplot$Global_active_power
+'windows()'
+
+
+png(filename = "plot2.png", width = 480, height = 480, units = "px", pointsize = 12,bg = "white")
+
+par(mfrow=c(1,1)) 
+par(mar=c(4,4,2,2))
+
+plot(x=xo,y=yo,type="l",xlab="",ylab="Global Active Power (Kilowatts)")
+ 
+dev.off()
